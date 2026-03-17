@@ -1,7 +1,40 @@
+/******footer******/
 .grid1-4 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding-left: 150px;
 }
+
+footer {
+  background-color: var(--card-bg-color);
+}
+
+.socialsLogos {
+  width: 40px;
+  padding-bottom: 10px;
+}
+
+/****img***/
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+  display: block;
+}
+
+/******farvekoder******/
+
+:root {
+  --primary-bg-color: #fffbf2;
+  --card-bg-color: #ffefd4;
+}
+
+body {
+  background-color: var(--primary-bg-color);
+}
+
+/*****font******/
 
 .aboreto-regular {
   font-family: "Aboreto", system-ui;
@@ -23,4 +56,10 @@ h2 {
 
 h3 {
   font-family: "Aboreto", system-ui;
+}
+
+a {
+  font-family: "Aboreto", system-ui;
+  text-decoration: none;
+  color: black;
 }
