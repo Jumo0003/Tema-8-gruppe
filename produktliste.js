@@ -1,8 +1,7 @@
 console.log("produktliste hentet");
 
-// Knapper
+//knapper
 const sortByPriceBtn = document.querySelector("#sortByPriceBtn");
-const filterBeautyBtn = document.querySelector("#filterBeautyBtn");
 const showAllBtn = document.querySelector("#showAllBtn");
 
 const listContainer = document.querySelector("#productListContainer");
@@ -53,10 +52,51 @@ function filterByCategory(targetCategory) {
   showProducts(filtered);
 }
 
-// Eventlisteners
-sortByPriceBtn.addEventListener("click", sortByPriceAsc);
-filterBeautyBtn.addEventListener("click", () => filterByCategory("beauty"));
-showAllBtn.addEventListener("click", () => showProducts(allProducts));
+//funktion til at bygge specifikke filtreringsknapper
+function buildFilterButtons(products) {
+  const categories = [...new Set(products.map((p) => p.category))];
+  const filterContainer = document.querySelector("#filterButtons");
+  filterContainer.innerHTML = "";
+
+  categories.forEach((category) => {
+    filterContainer.innerHTML += `
+      <button class="filterBtn">${category}</button>
+    `;
+  });
+
+  document.querySelectorAll(".filterBtn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterByCategory(btn.textContent);
+    });
+  });
+}
+
+function getProducts() {
+  if (categories.length === 0) {
+    fetch("https://dummyjson.com/products")
+      .then((res) => res.json())
+      .then((data) => {
+        allProducts = data.products;
+        buildFilterButtons(allProducts); // ← her
+        showProducts(allProducts);
+      });
+  } else if (categories.length === 1) {
+    fetch(`https://dummyjson.com/products/category/${categories[0]}`)
+      .then((res) => res.json())
+      .then((data) => {
+        allProducts = data.products;
+        buildFilterButtons(allProducts); // ← her
+        showProducts(allProducts);
+      });
+  } else {
+    const fetches = categories.map((cat) => fetch(`https://dummyjson.com/products/category/${cat}`).then((res) => res.json()));
+    Promise.all(fetches).then((results) => {
+      allProducts = results.flatMap((result) => result.products);
+      buildFilterButtons(allProducts); // ← her
+      showProducts(allProducts);
+    });
+  }
+}
 
 // Vis produkter
 function showProducts(products) {
@@ -82,5 +122,9 @@ function showProducts(products) {
     `;
   });
 }
+
+//eventlisteners
+sortByPriceBtn.addEventListener("click", sortByPriceAsc);
+showAllBtn.addEventListener("click", () => showProducts(allProducts));
 
 getProducts();
