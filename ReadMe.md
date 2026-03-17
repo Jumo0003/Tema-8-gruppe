@@ -21,13 +21,13 @@ Denne struktur gør det nemmere at vedligeholde projektet og finde de nødvendig
 
 _(fx CSS- og JavaScript-filer der bruges på tværs af projektet)_
 
-Vi laver en fælles mappe til styles, som bruges på alle sider i projektet. Denne mappe kalder vi **Global CSS**, og her placerer vi vores fælles styling som fx typografi, farver og generelle layoutregler.
+Vi laver en fælles mappe til styles, som bruges på alle sider i projektet. Denne mappe kalder vi **global CSS**, og her placerer vi vores fælles styling som fx typografi, farver og generelle layoutregler.
 
 Derudover laver vi tre JavaScript-filer, som håndterer forskellige funktioner på siden:
 
-- **cards.js** – håndterer funktionalitet til produktkort
-- **categories.js** – håndterer kategorier
-- **products.js** – håndterer produktdata
+- **.js** – håndterer funktionalitet til produktkort
+- **produktliste.js** – håndterer kategorier
+- **produkts.js** – håndterer produktdata
 
 Vi opretter også separate **HTML-filer for hver side**, så strukturen på hjemmesiden er overskuelig og nem at vedligeholde.
 
