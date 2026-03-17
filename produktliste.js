@@ -1,31 +1,44 @@
 console.log("produktliste hentet");
 
-// Hent kategori fra URL
-const params = new URLSearchParams(window.location.search);
-const Mycategory = params.get("category");
-
 // Knapper
 const sortByPriceBtn = document.querySelector("#sortByPriceBtn");
-const filterBeautyBtn = document.querySelector("#filterBeautyBtn"); // DummyJSON bruger category
+const filterBeautyBtn = document.querySelector("#filterBeautyBtn");
 const showAllBtn = document.querySelector("#showAllBtn");
-
-// DummyJSON API
-const listURL = Mycategory ? `https://dummyjson.com/products/category/${Mycategory}` : "https://dummyjson.com/products";
-
-console.log(listURL);
 
 const listContainer = document.querySelector("#productListContainer");
 let allProducts = [];
 
-// Hent produkter
+// Hent kategorier fra URL
+const params = new URLSearchParams(window.location.search);
+const categories = params.getAll("category");
+
+// Hent produkter — håndterer både én og flere kategorier
 function getProducts() {
-  fetch(listURL)
-    .then((res) => res.json())
-    .then((data) => {
-      // DummyJSON har products inde i data.products
-      allProducts = data.products;
+  if (categories.length === 0) {
+    // Ingen kategori i URL — hent alle produkter
+    fetch("https://dummyjson.com/products")
+      .then((res) => res.json())
+      .then((data) => {
+        allProducts = data.products;
+        showProducts(allProducts);
+      });
+  } else if (categories.length === 1) {
+    // Én kategori i URL
+    fetch(`https://dummyjson.com/products/category/${categories[0]}`)
+      .then((res) => res.json())
+      .then((data) => {
+        allProducts = data.products;
+        showProducts(allProducts);
+      });
+  } else {
+    // Flere kategorier i URL
+    const fetches = categories.map((cat) => fetch(`https://dummyjson.com/products/category/${cat}`).then((res) => res.json()));
+
+    Promise.all(fetches).then((results) => {
+      allProducts = results.flatMap((result) => result.products);
       showProducts(allProducts);
     });
+  }
 }
 
 // Sorter efter pris
@@ -34,18 +47,16 @@ function sortByPriceAsc() {
   showProducts(sorted);
 }
 
-sortByPriceBtn.addEventListener("click", sortByPriceAsc);
-
-// Filtrer kategori (fx beauty)
-filterBeautyBtn.addEventListener("click", () => filterByCategory("beauty"));
-
-showAllBtn.addEventListener("click", () => showProducts(allProducts));
-
-// Filter funktion
+// Filtrer kategori
 function filterByCategory(targetCategory) {
   const filtered = allProducts.filter((product) => product.category.toLowerCase() === targetCategory.toLowerCase());
   showProducts(filtered);
 }
+
+// Eventlisteners
+sortByPriceBtn.addEventListener("click", sortByPriceAsc);
+filterBeautyBtn.addEventListener("click", () => filterByCategory("beauty"));
+showAllBtn.addEventListener("click", () => showProducts(allProducts));
 
 // Vis produkter
 function showProducts(products) {
@@ -54,7 +65,6 @@ function showProducts(products) {
   products.forEach((product) => {
     listContainer.innerHTML += `
       <article class="productCard">
-
         <img src="${product.thumbnail}" alt="${product.title}" />
 
         <div class="badges">
@@ -66,15 +76,11 @@ function showProducts(products) {
           <h3>${product.title}</h3>
           <p>${product.category}</p>
           <p>${product.price} USD</p>
-          <p>${product.brand}</p>
-
           <a href="product.html?id=${product.id}">Køb</a>
         </div>
-
       </article>
     `;
   });
 }
 
-// Kør
 getProducts();
