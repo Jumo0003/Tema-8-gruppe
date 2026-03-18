@@ -10,6 +10,16 @@ const productURL = `https://dummyjson.com/products/${id}`;
 // Container til produkt
 const productcontainer = document.querySelector("#productContainer");
 
+//stjerner
+function visStjerner(rating) {
+  const fyldte = Math.floor(rating);
+  const decimal = rating - fyldte;
+  const halvt = decimal >= 0.5 ? 1 : 0;
+  const tomme = 5 - fyldte - halvt;
+
+  return "★".repeat(fyldte) + (halvt === 1 ? "½" : "") + "☆".repeat(tomme);
+}
+
 console.log(productcontainer);
 
 // Fetch data
@@ -33,15 +43,29 @@ function show(data) {
         <p>${data.description}</p>
         
         <p>Pris: ${data.price} USD</p>
+
+        <p>${visStjerner(data.rating)}</p>
         
-        <p>Rating: ${data.rating}</p>
+        <p>Tilgængelighed ${data.availabilityStatus}</p>
         
-        <p>Lagerstatus: ${data.availabilityStatus}</p>
-        
-        <p>Brand: ${data.brand}</p>
+        <p>Produceret af ${data.brand}</p>
         
         <a href="#">Add To Basket</a>
+        
       </div>
+      <section>
+  <h3>Reviews</h3>
+  ${data.reviews
+    .map(
+      (review) => `
+    <p>${review.reviewerName}</p>
+    <p>${review.date}</p>
+    <p>${review.comment}</p>
+    <p>${visStjerner(data.rating)}</p>
+  `,
+    )
+    .join("")}
+</section>
     </article>
   `;
 }
