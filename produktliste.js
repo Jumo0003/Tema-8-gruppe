@@ -11,35 +11,6 @@ let allProducts = [];
 const params = new URLSearchParams(window.location.search);
 const categories = params.getAll("category");
 
-// Hent produkter — håndterer både én og flere kategorier
-function getProducts() {
-  if (categories.length === 0) {
-    // Ingen kategori i URL — hent alle produkter
-    fetch("https://dummyjson.com/products")
-      .then((res) => res.json())
-      .then((data) => {
-        allProducts = data.products;
-        showProducts(allProducts);
-      });
-  } else if (categories.length === 1) {
-    // Én kategori i URL
-    fetch(`https://dummyjson.com/products/category/${categories[0]}`)
-      .then((res) => res.json())
-      .then((data) => {
-        allProducts = data.products;
-        showProducts(allProducts);
-      });
-  } else {
-    // Flere kategorier i URL
-    const fetches = categories.map((cat) => fetch(`https://dummyjson.com/products/category/${cat}`).then((res) => res.json()));
-
-    Promise.all(fetches).then((results) => {
-      allProducts = results.flatMap((result) => result.products);
-      showProducts(allProducts);
-    });
-  }
-}
-
 // Sorter efter pris
 function sortByPriceAsc() {
   const sorted = [...allProducts].sort((a, b) => a.price - b.price);
@@ -99,33 +70,26 @@ function getProducts() {
 }
 
 /*herobanner*/
-function setTitle(newTitle) {
-  document.getElementById("product-title1").textContent = newTitle;
-}
-
-const categoryTitles = {};
+const categoryTitles = {
+  beauty: "Beauty",
+  fragrances: "Fragrances",
+  "skin-care": "Skin Care",
+  "mens-watches": "Accessories",
+  sunglasses: "Accessories",
+  "womens-jewellery": "Accessories",
+};
 
 function setTitle(text) {
   document.getElementById("product-title").textContent = text;
 }
 
-fetch("https://dummyjson.com/products")
-  .then((res) => res.json())
-  .then((data) => {
-    if (data.products && data.products.length > 0) {
-      // Find første produkt i hver kategori og sæt titel
-      const firstProduct = data.products[0];
-      const category = firstProduct.category; // category fra API
-      const title = categoryTitles[category] || "Vores produkter";
-      setTitle(title);
-    } else {
-      setTitle("Ingen produkter fundet");
-    }
-  })
-  .catch((err) => {
-    console.error(err);
-    setTitle("Fejl ved indlæsning af produkter");
-  });
+// params er allerede defineret tidligere i filen
+const category = params.get("category");
+
+const titel = categoryTitles[category];
+setTitle(titel);
+
+/*herobanner stop*/
 
 // Vis produkter
 function showProducts(products) {
@@ -145,7 +109,7 @@ function showProducts(products) {
           <h3>${product.title}</h3>
           <p>${product.category}</p>
           <p>${product.price} USD</p>
-          <a class="button" href="product.html?id=${product.id}">Køb</a>
+          <a class="button" href="produkt.html?id=${product.id}">Køb</a>
           <a href="produkt.html?id=${product.id}">Køb</a>
         </div>
       </article>

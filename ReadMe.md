@@ -10,20 +10,20 @@ Vi har organiseret vores projekt i forskellige mapper for at holde filer og ress
 
 ### Organisering af ressourcer
 
-For at holde projektet overskueligt har vi lavet separate mapper til forskellige typer af filer:
+For at holde vores billder samlet et sted har vi oprettet en mappe til dem.
 
 - **img/** – indeholder alle billeder, der bruges på hjemmesiden (fx produktbilleder og grafik).
-- **font/** – indeholder fonte, der bruges i projektet.
 
-Denne struktur gør det nemmere at vedligeholde projektet og finde de nødvendige filer under udviklingen.
+Det gør det nemmere for os at finde rundt i de billder vi skal bruge til vores hjemmeside.
 
 ## Hvor placerer I boilerplate?
 
 _(fx CSS- og JavaScript-filer der bruges på tværs af projektet)_
 
 Vi laver en fælles mappe til styles, som bruges på alle sider i projektet. Denne mappe kalder vi **global CSS**, og her placerer vi vores fælles styling som fx typografi, farver og generelle layoutregler.
+udover det har vi også oprettet en **produktliste.css** mappe fordi den havde brug for nogen sepate regler
 
-Derudover laver vi tre JavaScript-filer, som håndterer forskellige funktioner på siden:
+Derudover laver JavaScript-filer, som håndterer forskellige funktioner på siden:
 
 - **.js** – håndterer funktionalitet til produktkort
 - **produktliste.js** – håndterer kategorier
