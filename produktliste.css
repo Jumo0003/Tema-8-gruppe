@@ -89,6 +89,24 @@
   gap: 30px;
 }
 
+.buttonKoeb {
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+
+  padding: 7px 10px;
+  background-color: #ffefd4;
+  border: 10px solid #fffbf2;
+  font-size: 15px;
+  font-family: "Aboreto", system-ui;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #d6c2a1;
+}
+
+.buttonKoeb:hover {
+  border: 10px solid #fee1af;
+}
+
 /****herobanner*****/
 #product-title {
   background-color: var(--card-bg-color);

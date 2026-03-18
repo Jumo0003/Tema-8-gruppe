@@ -109,8 +109,8 @@ function showProducts(products) {
           <h3>${product.title}</h3>
           <p>${product.category}</p>
           <p>${product.price} USD</p>
-          <a class="button" href="produkt.html?id=${product.id}">Køb</a>
-          <a href="produkt.html?id=${product.id}">Køb</a>
+          <a class="buttonKoeb" href="produkt.html?id=${product.id}">Tilføj til kurv</a>
+          <a href="produkt.html?id=${product.id}"></a>
         </div>
       </article>
     `;
