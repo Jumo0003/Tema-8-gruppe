@@ -98,6 +98,35 @@ function getProducts() {
   }
 }
 
+/*herobanner*/
+function setTitle(newTitle) {
+  document.getElementById("product-title1").textContent = newTitle;
+}
+
+const categoryTitles = {};
+
+function setTitle(text) {
+  document.getElementById("product-title").textContent = text;
+}
+
+fetch("https://dummyjson.com/products")
+  .then((res) => res.json())
+  .then((data) => {
+    if (data.products && data.products.length > 0) {
+      // Find første produkt i hver kategori og sæt titel
+      const firstProduct = data.products[0];
+      const category = firstProduct.category; // category fra API
+      const title = categoryTitles[category] || "Vores produkter";
+      setTitle(title);
+    } else {
+      setTitle("Ingen produkter fundet");
+    }
+  })
+  .catch((err) => {
+    console.error(err);
+    setTitle("Fejl ved indlæsning af produkter");
+  });
+
 // Vis produkter
 function showProducts(products) {
   listContainer.innerHTML = "";
@@ -105,17 +134,18 @@ function showProducts(products) {
   products.forEach((product) => {
     listContainer.innerHTML += `
       <article class="productCard">
-        <img src="${product.thumbnail}" alt="${product.title}" />
+        <img class="img-produkt" src="${product.thumbnail}" alt="${product.title}" />
 
         <div class="badges">
           ${product.stock < 10 ? `<p class="badge soldout">Low stock</p>` : ""}
-          ${product.price < 20 ? `<p class="badge discount">Billig</p>` : ""}
+          ${product.price < 20 ? `<p class="badge discount">Sale</p>` : ""}
         </div>
 
         <div class="tekst">
           <h3>${product.title}</h3>
           <p>${product.category}</p>
           <p>${product.price} USD</p>
+          <a class="button" href="product.html?id=${product.id}">Køb</a>
           <a href="produkt.html?id=${product.id}">Køb</a>
         </div>
       </article>
