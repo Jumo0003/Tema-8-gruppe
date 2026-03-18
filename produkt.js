@@ -46,12 +46,26 @@ function show(data) {
 
         <p>${visStjerner(data.rating)}</p>
         
-        <p>Lagerstatus: ${data.availabilityStatus}</p>
+        <p>Tilgængelighed ${data.availabilityStatus}</p>
         
-        <p>Brand: ${data.brand}</p>
+        <p>Produceret af ${data.brand}</p>
         
         <a href="#">Add To Basket</a>
+        
       </div>
+      <section>
+  <h3>Reviews</h3>
+  ${data.reviews
+    .map(
+      (review) => `
+    <p>${review.reviewerName}</p>
+    <p>${review.date}</p>
+    <p>${review.comment}</p>
+    <p>${visStjerner(data.rating)}</p>
+  `,
+    )
+    .join("")}
+</section>
     </article>
   `;
 }
