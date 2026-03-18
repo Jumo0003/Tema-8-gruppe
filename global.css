@@ -63,3 +63,92 @@ a {
   text-decoration: none;
   color: black;
 }
+
+/*** Vores historie side ***/
+.indholdBoks {
+  background-color: #ffefd4;
+  padding: 90px;
+  max-width: 100rem;
+  margin: 0 auto;
+  line-height: 1.8;
+  font-size: 35px;
+  margin-bottom: 100px;
+  margin-top: 80px;
+}
+
+.portrætBoks {
+  width: 120rem;
+  margin: 0 auto;
+}
+
+.heroBanner {
+  background-color: #ffefd4;
+  padding: 40px;
+  font-size: 50px;
+  text-align: center;
+  margin-bottom: 150px;
+}
+.underskrifter {
+  display: block;
+  margin-left: auto;
+  width: 500px;
+}
+
+/** Kontakt os side **/
+#form-section {
+  background-color: #ffefd4;
+  padding: 40px;
+  max-width: 100rem;
+  margin: 0 auto;
+  margin-top: 80px;
+  margin-bottom: 90px;
+}
+
+#form-section input,
+#form-section textarea {
+  width: 50rem;
+  padding: 30px;
+  border: none;
+  background-color: #fffbf2;
+  font-size: 16px;
+  display: block;
+  margin: 0 auto;
+}
+
+#form-section label {
+  display: block;
+  font-size: 35px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  font-family: "Aboreto", system-ui;
+}
+
+.forms-tekst {
+  font-size: 2rem;
+  text-align: center;
+}
+
+legend {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.button {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  padding: 15px 30px;
+  background-color: #ffefd4;
+  border: 10px solid #fffbf2;
+  font-size: 35px;
+  font-family: "Aboreto", system-ui;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #d6c2a1;
+  display: block;
+  margin-left: auto;
+}
+
+.button:hover {
+  border: 10px solid #ffd283;
+}
