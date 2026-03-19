@@ -10,11 +10,11 @@ Vi har organiseret vores projekt i forskellige mapper for at holde filer og ress
 
 ### Organisering af ressourcer
 
-For at holde vores billder samlet et sted har vi oprettet en mappe til dem.
+For at holde vores billeder samlet et sted har vi oprettet en mappe til dem.
 
 - **img/** – indeholder alle billeder, der bruges på hjemmesiden (fx produktbilleder og grafik).
 
-Det gør det nemmere for os at finde rundt i de billder vi skal bruge til vores hjemmeside.
+Det gør det nemmere for os at finde rundt i de billeder vi skal bruge til vores hjemmeside.
 
 ## Hvor placerer I boilerplate?
 
@@ -33,13 +33,38 @@ Vi opretter også separate **HTML-filer for hver side**, så strukturen på hjem
 
 ---
 
+## Database struktur
+
+Vores data hentes fra API’et DummyJSON, som fungerer som en database med produktinformation.
+Dataene er struktureret som objekter, der indeholder forskellige egenskaber (properties). Nogle af disse egenskaber indeholder arrays, fx en liste af anmeldelser. Derudover indeholder dataene også nested objekter (indlejrede objekter), som selv har deres
+egne egenskaber. Eksempler på dette er dimensions og reviews.
+
+Anvendte felter
+Vi anvender følgende felter fra hvert produktobjekt:
+id (number)
+thumbnail (string)
+title (string)
+description (string)
+category (string)
+price (number)
+stock (number)
+rating (number)
+brand (string)
+availabilityStatus (string)
+Reviews (nested array)
+Fra reviews bruger vi:
+rating (number)
+comment (string)
+date (string)
+reviewerName (string)
+
 ## Hvor placerer I HTML, CSS og JavaScript til fx detaljevisning og listevisning?
 
 HTML-filer til fx **listevisning** og **detaljevisning** placeres i projektets hovedmappen så siderne er organiseret og nemme at finde.
 
 CSS til disse sider placeres i **Global CSS-mappen**, hvis stylingen bruges flere steder på hjemmesiden. Hvis der er styling, der kun bruges til én specifik side, kan den placeres i en separat CSS-fil til den side.
 
-JavaScript til funktioner som **listevisning** og **detaljevisning** placeres i projektets hovdemappe, På den måde bliver koden mere struktureret og lettere at vedligeholde.
+JavaScript til funktioner som **listevisning** og **detaljevisning** placeres i projektets hovedmappe, På den måde bliver koden mere struktureret og lettere at vedligeholde.
 
 ---
 
@@ -55,7 +80,7 @@ JavaScript til funktioner som **listevisning** og **detaljevisning** placeres i 
 │
 ├── index.html
 ├── produkt.html
-└── produkliste.html
+└── produktliste.html
 
 ## Navngivning
 
@@ -129,45 +154,56 @@ Når en **feature-branch merges ind i `main`**, kommunikerer vi ændringen i **g
 
 Vi forsøger også så vidt muligt kun at **merge til `main`, når vi er samlet**, så vi kan undgå konflikter og fejl.
 
-_\*\*ikke opdateret, herefter _
-
 ## Kode:
 
 - Hvordan skriver i funktioner i JavaScript?(fx med function keyword eller som arrow functions)
 
+vi har brugt begge dele i vores projekt. Vi bruger function keyword til større navngivne funktioner, mens vi bruger arrow funktioner til de kortere funktioner ind i eventlistners og .forEach()
+
 - Beslut hvilken CSS selector i benyttes til referener i henholdsvis CSS og JavaScript(fx. id'er til JavaScript og Classes til CSS)
-- Skal filer have korte forklaringer som kommentarer?
+
+i vores projekt har vi ikke haft så strame regler i forhold til selektore, også fordi vi ikke har været så mange i gruppen og projektet har ikke været så stort at det har været uoverskueligt at skulle gå ind og finde selektorene for diverse id'er til javascript og classes til css.
 
 # Funktionalitet
 
 Dette afsnit skal forklare hvad I konkret har arbejde med, for at udvikle websitet. Tænk over hvilke interaktioner brugeren kan foretage på sitet? Eller hvordan websitet håndterer og præsenterer data? Eksempler på funktionalitet, der kan beskrives:
 
 - Hentning af produkter fra API.
-- Filtrering af produkter baseret på brugerens valg.
-- Dynamisk visning af produkter i HTML.
 
-Brug korte beskrivelser, som i eksemplerne herover
+Først henter vi "id" fra URL'en, derefter bruger vi Fetch til at hente Data'en, som vi bruger til at vise produktet på siden. For at vise produkterne dynamisk bruger vi funktionen showProducts og inde i den bruger vi .forEach() til at loope igennem hvert produkt som skal vises, og til visningen bygger vi HTML op med template literals via listContainer .innerHTML, hvor vi viser egenskaber som title, price, thumbnail og eventuelle badges.
+
+- Filtrering af produkter baseret på brugerens valg.
+
+Normalt ville vi have "Hardcode" filterknapperne direkte i HTML, og så ville vi kun kunne have globale filterknapper og ikke noget specifikt for de dynamiske sider. Men vi valgte at bygge dem dynamisk med buildFilterButtons, ...som automatisk opretter én filterknap per unik kategori
+der findes blandt de hentede produkter . Det er smart fordi så bliver filter knapperne dynamiske og ændre sig automatisk fra de dynamiske sider således at det hele følges ad.
+
+vores **vis alle** knap og **pris høj til lav** er hardcode
+
+## Stjerne rating funktion
+
+Alternativet til en stjerne rating kunne være bare at bruge tallene som de står i databasen, men i vores funktion visStjerner() bruger vi math.floor til at runde ned til næste fulde tal for at finde ud af mængden af fyldte stjerner, og decimal bruger vi til at finde ud af mængden af halv fyldte stjerner, og til sidst får vi den til at lægge de to sammen, og får den til at vise de resterne stjerne som tomme. Det er smart fordi det gør ratingen tydeligere for brugeren,
+og stjerne-rating er en velkendt konvention på shopping sider
+som brugeren derfor kender i forvejen.
+
+## Dynamisk banner
+
+Alternativet til at lave et dynamisk banner kunne have været i vores tilfælde bare at have et banner som virker på alle sider, som f.eks sagde "Vores Produkter". Men vores dynamiske banner, kigger i URL på den side den vises på og finder kategorierne der. Inde i vores
+
+const categoryTitles
+har vi defineret, hvilken overskrift som følger med diverse kategorier, og det er så den overskrift banneret viser. Det er smart fordi det gør det nemmere for brugeren at vide på hvilken side de er, og hvilke produkter de kan forvente at se.
 
 # API endpoints
 
 Dette afsnit skal liste de endpoints fra API'et i har benyttet:
 
-- (fx. https://dummyjson.com/products)
+de API endpoints vi har brugt er:
 
-# Dokumentation af Funktion
+- https://dummyjson.com/products
+  → henter alle produkter
 
-Dette afsnit skal beskrive en funktion I selv har udviklet. Det kunne eksempelvis være en funktion der generere en listen over fx. produkter:
+- https://dummyjson.com/products/${id}
+  → henter ét specifikt produkt med alle dets egenskaber,
+  inklusiv title, price, description, reviews osv.
 
-- Beskrivelse: Hvad gør funktionen? Hvordan spiller den sammen med resten af koden?
-- Parametre: Hvilke input forventes (fx en værdi fra en dropdown eller URL'en)?
-- Returnerer: Beskriv, om funktionen returnerer en værdi eller blot manipulerer DOM’en.
-- Eksempel på brug: Indsæt funktions-koden herunder(der hvor koden er i eksemplet) og vis, hvordan funktionen kaldes:
-
-```javascript
-//funktionens kode:
-function voresFunktion(sprog) {
-  console.log(`${sprog} syntax highlighting`);
-}
-//hvordan funktionen kaldes:
-voresFunktion("JavaScript");
-```
+- https://dummyjson.com/products/category/${cat}
+  → henter alle produkter inden for en specifik kategori
