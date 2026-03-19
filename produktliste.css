@@ -93,7 +93,6 @@
   position: absolute;
   bottom: 20px;
   right: 10px;
-
   padding: 7px 10px;
   background-color: #ffefd4;
   border: 10px solid #fffbf2;
@@ -116,22 +115,114 @@
   font-size: 100px;
 }
 
+/****menu*****/
+
 .menu {
-  background-color: #d9d3c7; /* beige like your design */
-  width: 250px;
-  height: 100vh;
-  padding: 30px;
+  display: none;
+  /* justify-content: center; */
+  /* align-items: center; */
+  gap: 40px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 2px;
+  padding: 15px 25px;
+  background-color: transparent;
+  letter-spacing: 2px;
+}
+
+.menu li:last-child {
+  margin-right: 0;
 }
 
 .burger {
   display: flex;
-  align-items: center;
-  gap: 15px;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 17px;
   cursor: pointer;
+  margin-right: 20px;
+
+  background: none; /* fjerner grå baggrund */
+  border: none; /* fjerner kant */
+  padding: 0;
 }
 
-/* "Menu" text */
-.burger span {
-  font-size: 28px;
-  font-weight: 500;
+.burger .line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  transition: all 0.3s ease;
+  background-color: black;
+}
+
+.logo-img1 {
+  width: 300px;
+  padding-left: 100px;
+}
+
+.navIkoner {
+  width: 150px;
+
+  list-style: none;
+  display: flex;
+
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.burger {
+  display: block;
+  background-color: transparent;
+  border: 0;
+}
+
+.menu a:hover {
+  background-color: transparent;
+}
+
+.burger.active .line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+  transition: 0.2s linear;
+}
+
+.burger.active .line:nth-child(2) {
+  opacity: 0;
+  transition: 0.15s linear;
+}
+
+.burger.active .line:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+  transition: 0.2s linear;
+}
+
+nav.active .menu {
+  display: block;
+  background-color: transparent;
+  position: absolute;
+  top: 94px;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  z-index: 4;
+}
+
+nav.active .menu li {
+  margin: 10px 20px;
+}
+
+nav.active .menu a {
+  font-size: 24px;
+  color: rgb(0, 0, 0);
+  -webkit-text-stroke: 0.5px black;
+  text-align: center;
 }
