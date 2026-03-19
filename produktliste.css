@@ -2,3 +2,23 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
+.menu {
+  background-color: #d9d3c7; /* beige like your design */
+  width: 250px;
+  height: 100vh;
+  padding: 30px;
+}
+
+.burger {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+}
+
+/* "Menu" text */
+.burger span {
+  font-size: 28px;
+  font-weight: 500;
+}
