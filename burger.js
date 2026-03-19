@@ -7,3 +7,4 @@ function burgerClick() {
   burger.classList.toggle("active");
   nav.classList.toggle("active");
 }
+
