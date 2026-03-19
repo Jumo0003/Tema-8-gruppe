@@ -21,11 +21,11 @@ Det gør det nemmere for os at finde rundt i de billder vi skal bruge til vores 
 _(fx CSS- og JavaScript-filer der bruges på tværs af projektet)_
 
 Vi laver en fælles mappe til styles, som bruges på alle sider i projektet. Denne mappe kalder vi **global CSS**, og her placerer vi vores fælles styling som fx typografi, farver og generelle layoutregler.
-udover det har vi også oprettet en **produktliste.css** mappe fordi den havde brug for nogen sepate regler
+udover det har vi også oprettet en **produktliste.css** mappe fordi den havde brug for nogen separate regler.
 
-Derudover laver JavaScript-filer, som håndterer forskellige funktioner på siden:
+Derudover lavede vi 3 JavaScript-filer, som håndterer forskellige funktioner på siden:
 
-- **.js** – håndterer funktionalitet til produktkort
+- **burger.js** – håndterer vores navigation i top baren
 - **produktliste.js** – håndterer kategorier
 - **produkts.js** – håndterer produktdata
 
@@ -35,31 +35,27 @@ Vi opretter også separate **HTML-filer for hver side**, så strukturen på hjem
 
 ## Hvor placerer I HTML, CSS og JavaScript til fx detaljevisning og listevisning?
 
-HTML-filer til fx **listevisning** og **detaljevisning** placeres i projektets hovedmappe eller i en `pages`-mappe, så siderne er organiseret og nemme at finde.
+HTML-filer til fx **listevisning** og **detaljevisning** placeres i projektets hovedmappen så siderne er organiseret og nemme at finde.
 
 CSS til disse sider placeres i **Global CSS-mappen**, hvis stylingen bruges flere steder på hjemmesiden. Hvis der er styling, der kun bruges til én specifik side, kan den placeres i en separat CSS-fil til den side.
 
-JavaScript til funktioner som **listevisning** og **detaljevisning** placeres i **JavaScript-mappen**, hvor filerne opdeles efter funktion. På den måde bliver koden mere struktureret og lettere at vedligeholde.
+JavaScript til funktioner som **listevisning** og **detaljevisning** placeres i projektets hovdemappe, På den måde bliver koden mere struktureret og lettere at vedligeholde.
 
 ---
 
 ## Eksempel på mappestruktur
 
 /project
-│
-├── /css
 │ └── global.css
-│
-├── /js
-│ ├── cards.js
-│ ├── categories.js
-│ └── products.js
+│ ├── produkt.js
+│ ├── produktliste.js
+│ └── burger.js
 │
 ├── /images
 │
 ├── index.html
-├── products.html
-└── product-detail.html
+├── produkt.html
+└── produkliste.html
 
 ## Navngivning
 
@@ -96,7 +92,7 @@ Det sikrer, at JavaScript først bliver kørt efter HTML'en er indlæst.
 
 ### Navngivning af branches
 
-For at gøre det tydeligt hvad der arbejdes på i de forskellige branches, navngiver vi dem med **bindestreger (-)**.
+For at gøre det tydeligt hvad der arbejdes på i de forskellige branches, navngiver vi dem med **bindestreger (-)** og skriver tydligt i navnet hvad der er bleve gjort eller fikset.
 
 **Format:**
 
@@ -123,9 +119,9 @@ For at sikre at commit-beskeder er forståelige, bruger vi **bindestreger (-)** 
 
 Eksempel:
 
-- `ret-header-navigation`
-- `tilføj-produktkort`
-- `opdater-footer`
+- `fixet-herobanner`
+- `produktliste-gjortdynamo`
+- `retReadme`
 
 ### Kommunikation om ændringer i main
 
@@ -138,6 +134,7 @@ _\*\*ikke opdateret, herefter _
 ## Kode:
 
 - Hvordan skriver i funktioner i JavaScript?(fx med function keyword eller som arrow functions)
+
 - Beslut hvilken CSS selector i benyttes til referener i henholdsvis CSS og JavaScript(fx. id'er til JavaScript og Classes til CSS)
 - Skal filer have korte forklaringer som kommentarer?
 
